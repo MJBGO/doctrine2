@@ -116,10 +116,10 @@ class SchemaValidator
 
             $targetMetadata = $cmf->getMetadataFor($assoc['targetEntity']);
 
-            if (isset($assoc['id']) && $targetMetadata->containsForeignIdentifier) {
-                $ce[] = "Cannot map association '" . $class->name. "#". $fieldName ." as identifier, because " .
-                        "the target entity '". $targetMetadata->name . "' also maps an association as identifier.";
-            }
+//            if (isset($assoc['id']) && $targetMetadata->containsForeignIdentifier) {
+//                $ce[] = "Cannot map association '" . $class->name. "#". $fieldName ." as identifier, because " .
+//                        "the target entity '". $targetMetadata->name . "' also maps an association as identifier.";
+//            }
 
             if ($assoc['mappedBy']) {
                 if ($targetMetadata->hasField($assoc['mappedBy'])) {
@@ -211,27 +211,27 @@ class SchemaValidator
                                 "' are missing.";
                     }
 
-                } elseif ($assoc['type'] & ClassMetadataInfo::TO_ONE) {
-                    $identifierColumns = $targetMetadata->getIdentifierColumnNames();
-                    foreach ($assoc['joinColumns'] as $joinColumn) {
-                        if (!in_array($joinColumn['referencedColumnName'], $identifierColumns)) {
-                            $ce[] = "The referenced column name '" . $joinColumn['referencedColumnName'] . "' " .
-                                    "has to be a primary key column on the target entity class '".$targetMetadata->name."'.";
-                        }
-                    }
-
-                    if (count($identifierColumns) != count($assoc['joinColumns'])) {
-                        $ids = [];
-
-                        foreach ($assoc['joinColumns'] as $joinColumn) {
-                            $ids[] = $joinColumn['name'];
-                        }
-
-                        $ce[] = "The join columns of the association '" . $assoc['fieldName'] . "' " .
-                                "have to match to ALL identifier columns of the target entity '". $targetMetadata->name . "', " .
-                                "however '" . implode(", ", array_diff($targetMetadata->getIdentifierColumnNames(), $ids)) .
-                                "' are missing.";
-                    }
+//                } elseif ($assoc['type'] & ClassMetadataInfo::TO_ONE) {
+//                    $identifierColumns = $targetMetadata->getIdentifierColumnNames();
+//                    foreach ($assoc['joinColumns'] as $joinColumn) {
+//                        if (!in_array($joinColumn['referencedColumnName'], $identifierColumns)) {
+//                            $ce[] = "The referenced column name '" . $joinColumn['referencedColumnName'] . "' " .
+//                                    "has to be a primary key column on the target entity class '".$targetMetadata->name."'.";
+//                        }
+//                    }
+//
+//                    if (count($identifierColumns) != count($assoc['joinColumns'])) {
+//                        $ids = [];
+//
+//                        foreach ($assoc['joinColumns'] as $joinColumn) {
+//                            $ids[] = $joinColumn['name'];
+//                        }
+//
+//                        $ce[] = "The join columns of the association '" . $assoc['fieldName'] . "' " .
+//                                "have to match to ALL identifier columns of the target entity '". $targetMetadata->name . "', " .
+//                                "however '" . implode(", ", array_diff($targetMetadata->getIdentifierColumnNames(), $ids)) .
+//                                "' are missing.";
+//                    }
                 }
             }
 

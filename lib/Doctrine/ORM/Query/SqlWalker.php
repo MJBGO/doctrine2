@@ -686,9 +686,9 @@ class SqlWalker implements TreeWalker
                 }
 
                 // COMPOSITE KEYS NOT (YET?) SUPPORTED
-                if (count($assoc['sourceToTargetKeyColumns']) > 1) {
-                    throw QueryException::associationPathCompositeKeyNotSupported();
-                }
+//                if (count($assoc['sourceToTargetKeyColumns']) > 1) {
+//                    throw QueryException::associationPathCompositeKeyNotSupported();
+//                }
 
                 if ($this->useSqlTableAliases) {
                     $sql .= $this->getSQLTableAlias($class->getTableName(), $dqlAlias) . '.';
